@@ -1,0 +1,1 @@
+ENCODING_DEFAULT = "latin-1"

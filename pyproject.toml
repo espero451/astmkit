@@ -1,0 +1,26 @@
+[project]
+name = "astmkit"
+version = "1.0.0"
+description = "Сommand-line tool to process ASTM messages for instrument interface implementation and debugging purposes."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "espero451"}
+]
+
+[project.urls]
+"Homepage" = "https://github.com/espero451/astm_kit"
+
+[project.scripts]
+astmkit = "astmkit.cli:main"
+
+[tool.setuptools]
+packages = ["astmkit"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
