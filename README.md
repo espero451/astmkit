@@ -7,13 +7,13 @@
 ## Installation:
 
 ```
-pipx install -e .
+pipx install .
 ```
 
 ## Usage:
 
 ```
-usage: astmkit [-h] [-i INPUT] [-o [OUTPUT]] [-r RECORD] [-x [HEX]]
+usage: astmkit [-h] [-i INPUT] [-o [OUTPUT]] [-r RECORD] [-x [16]]
 
 options:
   -h, --help            show this help message and exit
@@ -26,10 +26,6 @@ options:
   -x [16], --hex [16]
                         Show hex dump of input file (optional bytes per line, default: 16)
 ```
-Using the local launcher:
-
-```python3 asmkit.py [-i INPUT] [-o [OUTPUT]] [-r RECORD] [-x [HEX]]```
-
 
 ## Modes Explanation
 
@@ -102,17 +98,19 @@ CLI output:
 ##  Project Structure
 
 ```
-astmkit/
-├─ cli.py             # CLI entry point
-├─ parser.py          # Parsing ASTM messages
-├─ encoder.py         # Building ASTM frames
-├─ binary.py          # Hex dump & Cheksum functions
-├─ io.py              # File reading and writing
-├─ config.py          # Config
-├─ constants.py       # STX, ETX, CR, LF, etc.
-examples/             # Sample ASTM input files
-tests/                # Unit Tests
-README.md
+astm_kit/
+├─ astmkit/
+│  ├─ cli.py             # CLI entry point
+│  ├─ parser.py          # Parsing ASTM messages
+│  ├─ encoder.py         # Building ASTM frames
+│  ├─ binary.py          # Hex dump & Cheksum functions
+│  ├─ io.py              # File reading and writing
+│  ├─ config.py          # Config
+│  ├─ constants.py       # STX, ETX, CR, LF, etc.
+├─ examples/             # Sample ASTM input files
+├─ tests/                # Unit Tests
+├─ pyproject.toml
+└─ README.md
 ```
 
 ## Running Tests
@@ -120,8 +118,7 @@ README.md
 The project uses pytest for unit testing. To run tests:
 
 ```
-PYTHONPATH=. pytest tests/
-python3 -m pytest tests/
+python3 -m pytest
 ```
 
 ---
