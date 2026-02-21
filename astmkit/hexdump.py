@@ -1,9 +1,3 @@
-# 8-bit sum
-def calc_checksum(payload: bytes) -> int:
-    return sum(payload) & 0xFF
-
-
-# hexdump
 def hexdump(data: bytes, length: int = 16) -> str:
 
     lines = []

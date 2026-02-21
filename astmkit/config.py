@@ -1,1 +1,14 @@
 ENCODING_DEFAULT = "latin-1"
+
+# CONSTANTS:
+
+STX = 0x02
+ETX = 0x03
+EOT = 0x04
+
+CR = 0x0D
+LF = 0x0A
+
+ENQ = 0x05
+ACK = 0x06
+NAK = 0x15

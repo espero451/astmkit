@@ -1,6 +1,6 @@
 # ASTM Kit
 
-**ASTM Kit** is a command-line tool to process ASTM messages for instrument interface implementation and debugging purposes. It provides a single tool for common operations such as field enumeration, frame building, and hex inspection.
+**ASTM Kit** is a command-line tool for working with ASTM messages: enumerate fields, build binary frames, inspect hex dumps, and emulate instrument TCP sessions.
 
 ---
 
@@ -13,18 +13,13 @@ pipx install .
 ## Usage:
 
 ```
-usage: astmkit [-h] [-i INPUT] [-o [OUTPUT]] [-r RECORD] [-x [16]]
+usage: astmkit <command> [args]
 
-options:
-  -h, --help            show this help message and exit
-  -i INPUT, --input INPUT
-                        Input file path
-  -o OUTPUT, --output OUTPUT
-                        Output file path (for frame building)
-  -r RECORD, --record RECORD
-                        Record type to enumerate: H, P, O, R, C, M, L, Q.
-  -x [16], --hex [16]
-                        Show hex dump of input file (optional bytes per line, default: 16)
+commands:
+  enum   Enumerate fields of a record
+  hex    Show hex dump of input file
+  frame  Build binary ASTM frame
+  inst   Run instrument emulator
 ```
 
 ## Modes Explanation
@@ -33,7 +28,13 @@ options:
 
 Allows simple enumeration of segments within a record. You can select record types: H, P, O, R, C, M, L, Q (case-insensitive).
 
-Command: ```astmkit -i input.astm -r P```
+Command: ```astmkit enum input.astm P```
+
+Multiple record types are supported:
+```
+astmkit enum input.astm H/O/R/C/M
+astmkit enum input.astm H O R C M
+```
 
 Example:
 
@@ -65,7 +66,7 @@ P9: F
 Converts a text-based ASTM message into a structured binary frame suitable for feeding to laboratory instruments or interfaces for testing and debugging purposes.
 
 Command:
-```astmkit -i input.astm -o output.astm```
+```astmkit frame input.astm output.astm```
 
 
 ### Mode 3. Hex dump of input files.
@@ -74,8 +75,8 @@ Displays the hexadecimal representation of a file, facilitating low-level inspec
 
 Command:
 ```
-astmkit -i input.astm -x       # default 16 bytes per line
-astmkit -i input.astm -x 32    # custom bytes per line
+astmkit hex input.astm       # default 16 bytes per line
+astmkit hex input.astm 32    # custom bytes per line
 ```
 CLI output:
 ```
@@ -93,24 +94,14 @@ CLI output:
 00B0  35 2E 32 7C 4E 7C 7C 7C 46 0A 4C 7C 31 7C 4E      |5.2|N|||F.L|1|N|
 ```
 
----
+### Mode 4. Instrument emulator
 
-##  Project Structure
+Sends an ASTM frame over TCP to a target host and prints response frames.
 
+Command:
 ```
-astm_kit/
-├─ astmkit/
-│  ├─ cli.py             # CLI entry point
-│  ├─ parser.py          # Parsing ASTM messages
-│  ├─ encoder.py         # Building ASTM frames
-│  ├─ binary.py          # Hex dump & Cheksum functions
-│  ├─ io.py              # File reading and writing
-│  ├─ config.py          # Config
-│  ├─ constants.py       # STX, ETX, CR, LF, etc.
-├─ examples/             # Sample ASTM input files
-├─ tests/                # Unit Tests
-├─ pyproject.toml
-└─ README.md
+astmkit inst input.astm --port 20100
+astmkit inst input.astm --host 127.0.0.1 --port 20100
 ```
 
 ## Running Tests
@@ -121,9 +112,6 @@ The project uses pytest for unit testing. To run tests:
 python3 -m pytest
 ```
 
----
-
 ##  TODO
 
-- Implement sending messages over TCP/IP
 - Add support for serial interfaces

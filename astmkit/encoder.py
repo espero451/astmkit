@@ -1,6 +1,9 @@
-from astmkit.constants import STX, ETX, CR, LF
-from astmkit.binary import calc_checksum
-from astmkit.config import ENCODING_DEFAULT
+from astmkit.config import ENCODING_DEFAULT, STX, ETX, CR, LF
+
+
+# 8-bit sum
+def calc_checksum(payload: bytes) -> int:
+    return sum(payload) & 0xFF
 
 
 def build_astm_msg(records: list[str]) -> bytes:

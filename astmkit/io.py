@@ -8,4 +8,4 @@ def read_binary(path) -> bytes:
 
 def write_binary(path, data: bytes):
     with open(path, "wb") as f:
-            f.write(data)
+        f.write(data)
